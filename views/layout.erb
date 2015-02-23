@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <title><%= yield_content :title %></title>
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+		<%= yield_content :main_text %>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+					<%= yield_content :column1 %>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+					<%= yield_content :column2 %>
+				</div>
+			</div>
+		</div>
+		
+		<%= yield_content :remainder %>
+		
+		<script src="js/bootstrap.js"></script>
+  </body>
+</html>

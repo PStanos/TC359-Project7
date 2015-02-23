@@ -1,0 +1,34 @@
+<% content_for :title do %>
+	Index
+<% end %>
+
+<% content_for :main_text do %>
+	<h1>U.S. Holidays</h1>
+<% end %>
+
+<% content_for :column1 do %>
+	<h3>This Month's Holidays</h3>
+	<ul>
+		<% @thisMonthsHolidays.each do |day| %>
+			<% day.each do |holiday| %>
+				<li>
+					<%= holiday["name"] %>
+				</li>
+			<% end %>
+		<% end %>
+	</ul>
+	
+<% end %>
+
+<% content_for :column2 do %>
+	<h3>My Birthday Month Holidays (February, 1993)</h3>
+	<ul>
+		<% @myBirthdayHolidays.each do |day| %>
+			<% day.each do |holiday| %>
+				<li>
+					<%= holiday["name"] %>
+				</li>
+			<% end %>
+		<% end %>
+	</ul>
+<% end %>
