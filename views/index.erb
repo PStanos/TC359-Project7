@@ -1,34 +1,44 @@
 <% content_for :title do %>
-	Index
+  Index
 <% end %>
 
-<% content_for :main_text do %>
-	<h1>U.S. Holidays</h1>
+<% content_for :holiday_results do %>
+  <h1>U.S. Holidays</h1>
+  
+  <% if @holidays.any? %>
+    <h3>Holidays Meeting Your Criteria</h3>
+    <ul>
+      <% @holidays.each do |day| %>
+        <% day.each do |holiday| %>
+          <li>
+            <%= holiday["name"] %>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  <% else %>
+    <h3>There were no holidays for the settings you specified</h3>
+  <% end %>
 <% end %>
 
-<% content_for :column1 do %>
-	<h3>This Month's Holidays</h3>
-	<ul>
-		<% @thisMonthsHolidays.each do |day| %>
-			<% day.each do |holiday| %>
-				<li>
-					<%= holiday["name"] %>
-				</li>
-			<% end %>
-		<% end %>
-	</ul>
-	
-<% end %>
-
-<% content_for :column2 do %>
-	<h3>My Birthday Month Holidays (February, 1993)</h3>
-	<ul>
-		<% @myBirthdayHolidays.each do |day| %>
-			<% day.each do |holiday| %>
-				<li>
-					<%= holiday["name"] %>
-				</li>
-			<% end %>
-		<% end %>
-	</ul>
+<% content_for :holiday_form do %>
+  <h2>Select your date and country to search holidays for</h2>
+  
+  <form>
+    <select name="country" class="form-control" value="<%= params["country"] %>">
+      <option value="us" <%= 'selected="selected"' if "us" == params["country"] %>>United States</option>
+      <option value="gb" <%= 'selected="selected"' if "gb" == params["country"] %>>Great Britain</option>
+    </select>
+    <select name="year" class="form-control" value="<%= params["year"] %>">
+      <% (Time.now.year).downto(1800).each do |year| %>
+        <option value="<%= year %>" <%= 'selected="selected"' if year == params["year"].to_i %>><%= year %></option>
+      <% end %>
+    </select>
+    <select name="month" class="form-control">
+      <% for i in 1..12 do %>
+        <option value="<%= i %>" <%= 'selected="selected"' if i == params["month"].to_i %>><%= @months[i - 1] %></option>
+       <% end %>
+    </select>
+    <button type="submit">Click to get holidays!</button>
+  </form>
 <% end %>

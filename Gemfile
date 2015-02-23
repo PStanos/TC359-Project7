@@ -10,3 +10,5 @@ gem 'sinatra-contrib'
 gem 'cat_api'
 
 gem 'holidapi'
+
+gem 'rack', '1.5.2'

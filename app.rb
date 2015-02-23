@@ -5,16 +5,15 @@ require 'cat_api'
 require 'holidapi'
 
 class MyWebApp < Sinatra::Base
-	helpers Sinatra::ContentFor
+  helpers Sinatra::ContentFor
   get '/' do
-		last_modified Time.now
-		@thisMonthsHolidays = HolidApi.get(country: 'us', year: Time.now.year, month: Time.now.month)
-		@myBirthdayHolidays = HolidApi.get(country: 'us', year: 1993, month: 2)
+    last_modified Time.now
+    @months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    if params['country'] != nil and params['year'] != nil and params['month'] != nil
+      @holidays = HolidApi.get(country: params['country'], year: params['year'].to_i, month: params['month'].to_i)
+    else
+      @holidays = []
+    end
     erb :index
   end
-	
-	get '/cats' do
-		@pictures = CatAPI.new.get_images(category: 'hats', results_per_page: '100')
-		erb :cats
-	end
 end
